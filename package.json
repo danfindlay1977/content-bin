@@ -1,0 +1,38 @@
+{
+  "name": "content-bin",
+  "version": "1.0.0",
+  "description": "store digital content ",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": " nodemon ./server/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danfindlay1977/content-bin.git"
+  },
+  "author": "Daniel Findlay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danfindlay1977/content-bin/issues"
+  },
+  "homepage": "https://github.com/danfindlay1977/content-bin#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^6.3.0",
+    "cors": "^2.8.5",
+    "dot-env": "^0.0.1",
+    "express": "^4.18.1",
+    "helmet": "^5.1.1",
+    "ibm-cos-sdk": "^1.12.2",
+    "mariadb": "^3.0.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^2.3.3",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.21.3",
+    "sequelize-cli": "^6.4.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1"
+  }
+}
