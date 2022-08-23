@@ -1,5 +1,5 @@
 
-node_modules/
+node_modules
 .env
 db_models.bash
 key.json
