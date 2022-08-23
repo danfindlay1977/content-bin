@@ -4,7 +4,7 @@ store videos and other digital content online.
 
 ## stack
 
-sql --> reddis --> expressJS --> reactJS/tailwind css
+postgress --> reddis --> expressJS --> reactJS/tailwind css
 
 ## functional requirments
 
@@ -17,4 +17,6 @@ sql --> reddis --> expressJS --> reactJS/tailwind css
 ## to do list
 
 -- basic CRUD operations for videos with tests
---ensure gcloud bucket is synced with database
+--ensure gcloud bucket is synced with database add in update and delete methods
+-- add express error handling in app.js
+-- controller for upload needs to handle adding mutiple files to the database

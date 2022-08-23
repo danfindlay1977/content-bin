@@ -6,14 +6,14 @@ const {
   getVideo,
   getVideos,
   updateVideo,
-  searchVideo,
+  deleteVideo,
 } = require("../controller/videos");
 const { cpUpload } = require("../middleware/upload");
 
 router.post("/upload", cpUpload, uploadVideo);
 router.get("/videos", getVideos);
 router.get("/video/:id", getVideo);
-router.patch("/video/id", updateVideo);
-router.get("/video/search", searchVideo);
+router.patch("/video/:id", cpUpload, updateVideo);
+router.delete("/video/:id", deleteVideo);
 
 module.exports = router;

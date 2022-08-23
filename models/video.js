@@ -1,5 +1,8 @@
 "use strict";
 const { Model } = require("sequelize");
+const Bucket = require("../server/utils/Bucket-gcloud");
+const bucket = new Bucket();
+
 module.exports = (sequelize, DataTypes) => {
   class Video extends Model {
     /**
@@ -20,9 +23,25 @@ module.exports = (sequelize, DataTypes) => {
       video_description: DataTypes.STRING,
     },
     {
+      hooks: {
+        beforeCreate: async ({ dataValues }, options) => {
+          // check to see if the name is already in db
+          console.log("in create");
+          await bucket.upload(dataValues.video_name);
+        },
+
+        beforeDestroy: async ({ dataValues }, options) => {
+          await bucket.remove(dataValues.video_name);
+        },
+        beforeUpdate: async ({ dataValues }, options) => {
+          //await bucket.update();
+        },
+      },
+
       sequelize,
       modelName: "Video",
     }
   );
+
   return Video;
 };

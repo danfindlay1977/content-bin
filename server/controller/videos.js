@@ -1,7 +1,6 @@
 /* provides basic Crud Operations for videos uploading ,deleting , updating and querying */
 const { Video } = require("../../models");
-const Bucket = require("../utils/Bucket-gcloud");
-const bucket = new Bucket();
+const { param } = require("../routes/videos");
 
 exports.uploadVideo = async (req, res, next) => {
   const { name, mimeType } = req.body;
@@ -16,15 +15,45 @@ exports.uploadVideo = async (req, res, next) => {
     if (!video) {
       throw new Error("video data could not be added to the database");
     }
-    const data = await bucket.upload(name);
 
-    res.status(201).send({ data });
+    res.status(201).send({ video });
   } catch (e) {
     console.log(e);
   }
 };
-exports.deleteVideo = (req, res, next) => {};
+exports.deleteVideo = async (req, res, next) => {
+  try {
+    const deleteRecord = await Video.destroy({
+      where: {
+        id: req.params.id,
+      },
+      individualHooks: true,
+    });
+    res.json({ deleteRecord });
+  } catch (e) {
+    console.log(e);
+  }
+};
 exports.getVideos = (req, res, next) => {};
 exports.getVideo = (req, res, next) => {};
-exports.updateVideo = (req, res, next) => {};
-exports.searchVideo = (req, res, next) => {};
+exports.updateVideo = async (req, res, next) => {
+  const { video_name, video_description, video_filetype, video_length } =
+    req.body;
+  console.log(video_description);
+  console.log(video_length);
+  try {
+    const updatedVideo = await Video.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    updatedVideo.video_name = video_name;
+    updatedVideo.video_description = video_description;
+    updatedVideo.video_filetype = video_filetype;
+    updatedVideo.video_length = video_length;
+    const video = await updatedVideo.save();
+    res.status(201).send({ video });
+  } catch (e) {
+    console.log(e);
+  }
+};
