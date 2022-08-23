@@ -4,7 +4,7 @@ This is an early-stage prototype of an application to store and stream digital a
 
 The project is still in the early stages of development and I am still looking for the correct name. Please contact me if you are interested in learning more or potentially collaborating with me
 
-## stack (off-chain)
+## Stack (off-chain)
 
 postgress --> reddis --> expressJS --> reactJS/tailwind css
 
