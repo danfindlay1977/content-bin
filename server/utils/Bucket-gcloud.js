@@ -1,15 +1,15 @@
 const { Storage } = require("@google-cloud/storage");
 const path = require("path");
 const fsExtra = require("fs-extra");
-const req = require("express/lib/request");
+const axios = require("axios");
+const { projectId } = require("../../config.js");
+
 class Bucket {
   constructor() {
-    console.log("in constructer");
     this.storage = new Storage({
       keyFilename: path.join(__dirname, "../key.json"),
-      projectId: "banded-arch-358717",
+      projectId,
     });
-
     this.storage.getBuckets().then(([data]) => {
       // check that bucket is up and running
       if (data.length == 0) {
@@ -19,7 +19,7 @@ class Bucket {
       }
     });
     this.bucket = this.storage.bucket("contentbin-videos");
-    //console.log(`name of current bucket is ${this.bucket.id}`);
+    this.baseUrl = `https://storage.googleapis.com/storage/v1/b/${this.bucket}`;
   }
 
   async upload(name) {

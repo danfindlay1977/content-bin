@@ -9,6 +9,7 @@ const { cpUpload } = require("./middleware/upload");
 const port = process.env.PORT || 8080;
 const { Storage } = require("@google-cloud/storage");
 const path = require("path");
+const config = require("../config.js");
 // const gc = new Storage({
 //   keyFilename: path.join(__dirname, "./key.json"),
 //   projectId: "banded-arch-358717",

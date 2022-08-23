@@ -21,3 +21,7 @@ postgress --> reddis --> expressJS --> reactJS/tailwind css
 | 2      | videos can be streamed directly from the cloud bucket to the user interface          | must have    |
 | 3      | Users can search for videos via name and description                                 | must have    |
 | 3.1    | users can filter videos via length and viewer numbers                                | like to have |
+
+## Project Status
+
+In development
