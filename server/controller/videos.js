@@ -1,6 +1,5 @@
 /* provides basic Crud Operations for videos uploading ,deleting , updating and querying */
 const { Video } = require("../../models");
-const { param } = require("../routes/videos");
 
 exports.uploadVideo = async (req, res, next) => {
   const { name, mimeType } = req.body;
@@ -37,16 +36,19 @@ exports.deleteVideo = async (req, res, next) => {
 exports.getVideos = (req, res, next) => {};
 exports.getVideo = (req, res, next) => {};
 exports.updateVideo = async (req, res, next) => {
-  const { video_name, video_description, video_filetype, video_length } =
-    req.body;
-  console.log(video_description);
-  console.log(video_length);
+  const {
+    video_mimeType,
+    video_name,
+    video_description,
+    video_filetype,
+    video_length,
+  } = req.body;
+  console.log(req.body);
   try {
     const updatedVideo = await Video.findOne({
-      where: {
-        id: req.params.id,
-      },
+      where: { id: req.params.id },
     });
+
     updatedVideo.video_name = video_name;
     updatedVideo.video_description = video_description;
     updatedVideo.video_filetype = video_filetype;

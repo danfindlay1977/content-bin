@@ -9,7 +9,11 @@ const { cpUpload } = require("./middleware/upload");
 const port = process.env.PORT || 8080;
 const { Storage } = require("@google-cloud/storage");
 const path = require("path");
-const config = require("../config.js");
+const { dbUser, dbPassword, dbName } = require("../config.js");
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(
+  `postgres://${dbUser}:${dbPassword}@localhost:5432/${dbName}`
+);
 // const gc = new Storage({
 //   keyFilename: path.join(__dirname, "./key.json"),
 //   projectId: "banded-arch-358717",
@@ -19,6 +23,7 @@ const config = require("../config.js");
 //   .catch((e) => console.log(e));
 // // middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(morgan("tiny"));
 app.use(cors());
@@ -28,4 +33,5 @@ app.use("/api/v1", videoRouter);
 
 app.listen(port, () => {
   console.log(`app running on port ${port}`);
+  sequelize.sync();
 });

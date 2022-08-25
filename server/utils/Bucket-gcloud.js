@@ -1,8 +1,10 @@
 const { Storage } = require("@google-cloud/storage");
+const { GoogleAuth } = require("google-auth-library");
 const path = require("path");
 const fsExtra = require("fs-extra");
 const axios = require("axios");
 const { projectId } = require("../../config.js");
+const keys = require("../key.json");
 
 class Bucket {
   constructor() {
@@ -13,13 +15,11 @@ class Bucket {
     this.storage.getBuckets().then(([data]) => {
       // check that bucket is up and running
       if (data.length == 0) {
-        console.log("IN CHECK =======+++++++");
         // create new bucket
         this.storage.createBucket("contentbin-videos");
       }
     });
     this.bucket = this.storage.bucket("contentbin-videos");
-    this.baseUrl = `https://storage.googleapis.com/storage/v1/b/${this.bucket}`;
   }
 
   async upload(name) {
@@ -40,8 +40,19 @@ class Bucket {
       throw new Error(e);
     }
   }
-  async update(filenames, name) {
+  async update(oldRecord, newRecord) {
+    console.log(oldRecord);
+    console.log(newRecord);
     try {
+      const delRecord = await this.bucket.file(oldRecord).delete();
+      if (delRecord) {
+        const file = await this.bucket.upload(
+          `${__dirname}/../uploads/${newRecord}`
+        );
+        if (file) {
+          clearUploads();
+        }
+      }
     } catch (e) {
       throw new Error(e);
     }

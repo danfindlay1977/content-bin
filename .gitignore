@@ -5,3 +5,4 @@ db_models.bash
 key.json
 policy.json
 uploads/
+.vscode/

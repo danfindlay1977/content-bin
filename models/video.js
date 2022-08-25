@@ -2,7 +2,8 @@
 const { Model } = require("sequelize");
 const Bucket = require("../server/utils/Bucket-gcloud");
 const bucket = new Bucket();
-
+const fs = require("fs");
+const path = require("path");
 module.exports = (sequelize, DataTypes) => {
   class Video extends Model {
     /**
@@ -34,7 +35,20 @@ module.exports = (sequelize, DataTypes) => {
           await bucket.remove(dataValues.video_name);
         },
         beforeUpdate: async ({ dataValues }, options) => {
-          //await bucket.update();
+          const oldRecord = await Video.findOne({
+            where: {
+              id: dataValues.id,
+            },
+          });
+          console.log(oldRecord);
+          const dir = path.join(__dirname, "/../server/uploads");
+          const file = fs.readdirSync(dir);
+          console.log(dataValues);
+
+          if (file.length == 1) {
+            console.log("in here");
+            await bucket.update(oldRecord.video_name, dataValues.video_name);
+          }
         },
       },
 
