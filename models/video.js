@@ -26,8 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       hooks: {
         beforeCreate: async ({ dataValues }, options) => {
-          // check to see if the name is already in db
-          console.log("in create");
+          console.log(dataValues);
           await bucket.upload(dataValues.video_name);
         },
 

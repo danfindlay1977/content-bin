@@ -2,14 +2,15 @@
 const { Video } = require("../../models");
 
 exports.uploadVideo = async (req, res, next) => {
-  const { name, mimeType } = req.body;
+  const { video_name, video_description, video_filetype, video_length } =
+    req.body;
   try {
     const video = await Video.create({
-      video_name: name,
-      video_publishDate: "10/12/22",
-      video_filetype: mimeType,
-      video_length: 25.5,
-      video_description: "This is a description",
+      video_name: video_name,
+      video_publishDate: "10/12/1997",
+      video_filetype: video_filetype,
+      video_length: video_length,
+      video_description: video_description,
     });
     if (!video) {
       throw new Error("video data could not be added to the database");
@@ -43,11 +44,13 @@ exports.updateVideo = async (req, res, next) => {
     video_filetype,
     video_length,
   } = req.body;
-  console.log(req.body);
+
+  console.log(video_name);
   try {
     const updatedVideo = await Video.findOne({
       where: { id: req.params.id },
     });
+    console.log(updatedVideo);
 
     updatedVideo.video_name = video_name;
     updatedVideo.video_description = video_description;

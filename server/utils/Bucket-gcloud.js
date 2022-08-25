@@ -50,7 +50,7 @@ class Bucket {
           `${__dirname}/../uploads/${newRecord}`
         );
         if (file) {
-          clearUploads();
+          this.clearUploads();
         }
       }
     } catch (e) {
