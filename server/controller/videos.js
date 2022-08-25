@@ -18,7 +18,7 @@ exports.uploadVideo = async (req, res, next) => {
 
     res.status(201).send({ video });
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 };
 exports.deleteVideo = async (req, res, next) => {
@@ -31,7 +31,7 @@ exports.deleteVideo = async (req, res, next) => {
     });
     res.json({ deleteRecord });
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 };
 exports.getVideos = (req, res, next) => {};
@@ -59,6 +59,6 @@ exports.updateVideo = async (req, res, next) => {
     const video = await updatedVideo.save();
     res.status(201).send({ video });
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 };

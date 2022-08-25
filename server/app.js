@@ -31,6 +31,17 @@ app.use(cors());
 // routes
 app.use("/api/v1", videoRouter);
 
+// error handling middlware
+app.use((error, req, res, next) => {
+  console.log("in global error handling");
+  console.log(error);
+  const statusCode = error.status;
+  const errorMsg = error.msg;
+  console.log(statusCode);
+  console.log(errorMsg);
+  res.status(statusCode).send({ errorMsg });
+});
+
 app.listen(port, () => {
   console.log(`app running on port ${port}`);
   sequelize.sync();
